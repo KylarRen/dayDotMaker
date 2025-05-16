@@ -15,6 +15,7 @@ function setColor(elem, date) {
 
             case 1: // Monday
                 elem.style.backgroundColor = "blue"; 
+                elem.style.color = "white";
                 break;
 
             case 2: // Tuesday

@@ -1,11 +1,19 @@
+
 .column {
 
-    display:block;
+    display:inline;
+    float:left;
 
 }
 
-#12hours{
+.dayDot {
 
-    background-color: blue;
+    padding: 16px 24px;
+    margin: 8px;
+    background: #e0e0e0;
+    border-radius: 16px; /* Makes the rectangle rounded */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    text-align: center;
 
 }
+

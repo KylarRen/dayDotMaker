@@ -1,7 +1,7 @@
 body {
 
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     margin: 0;
     padding: 0;
     background-color: rgb(31, 30, 30);
@@ -12,12 +12,12 @@ body {
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    width: calc(100vw - 64px); /* account for margin */
-    height: calc(100vh - 64px);
-    margin: 32px;
+    gap: 12px;
+    width: 94vw;      /* Smaller than viewport */
+    height: 80vh;     /* Smaller than viewport */
+    margin: 5vh auto 0 auto;   /* 32px top margin, auto left/right, 0 bottom */
     box-sizing: border-box;
-    padding: 16px;
+    padding: 0;       /* Remove extra padding */
 
 }
 

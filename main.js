@@ -51,17 +51,34 @@ function setColor(elem, date) {
 
 function formatDate(date) {
 
-    const options = {
+    if(isNaN(date) || date == null){
 
-        weekday: 'long',   // e.g., "Monday"
-        month: 'numeric',     // e.g., "01"
-        day: 'numeric',    // e.g., "16"
-        hour: '2-digit',   // e.g., "08"
-        minute: '2-digit'  // e.g., "05"
+        new Error("Invalid date");
+        return;
 
-    };
+    }
 
-    return date.toLocaleString(undefined, options);
+    else{
+
+        const options = {
+
+            month: 'numeric',     // e.g., "01"
+            day: 'numeric',    // e.g., "16"
+            hour: '2-digit',   // e.g., "08"
+            minute: '2-digit'  // e.g., "05"
+
+        };
+
+        return date.toLocaleString(undefined, options);
+
+    }
+
+}
+
+function getDayOfWeek(date) {
+   
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return daysOfWeek[date.getDay()];
 
 }
 
@@ -123,15 +140,27 @@ function updateDayDots() {
 
     for (let i = 0; i < idOfDayDots.length; i++) {
 
+        var newTime = addHours(now, idOfDayDots[i][1]);
+
         const elem = document.getElementById(idOfDayDots[i][0]);
 
         if (elem) {
 
-            elem.innerHTML = dayDots[i] + "<br>" + formatDate(addHours(now, idOfDayDots[i][1]));
-       
+            if (i !== 0) {
+
+                elem.innerHTML = dayDots[i] + "<br>" + getDayOfWeek(newTime) + "<br>" + formatDate(newTime);
+
+            }
+
+            else {
+               
+                elem.innerHTML = dayDots[i] + "<br>" + getDayOfWeek(newTime) + "<br>" + formatDate(newTime);
+
+            }       
+
         }
         
-        setColor((elem),addHours(now, idOfDayDots[i][1]));
+        setColor(elem,newTime);
     
     }
 }

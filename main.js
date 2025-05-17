@@ -1,5 +1,20 @@
 const now = new Date();
 
+var dayDots = [];
+
+const idOfDayDots = [
+
+    ["twelveHours",12],
+    ["twentyFourHours",24],
+    ["twoDays",48],
+    ["threeDays",72],
+    ["fiveDays",120],
+    ["oneWeek",168],
+    ["twoWeeks",336],
+    ["thirtyDays",720]
+
+];
+
 function setColor(elem, date) {
 
     if (elem) {
@@ -75,6 +90,7 @@ function formatDate(date) {
 
 }
 
+
 function getDayOfWeek(date) {
    
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -107,21 +123,6 @@ function addHours(date, hours) {
 
 }
 
-const idOfDayDots = [
-
-    ["twelveHours",12],
-    ["twentyFourHours",24],
-    ["twoDays",48],
-    ["threeDays",72],
-    ["fiveDays",120],
-    ["oneWeek",168],
-    ["twoWeeks",336],
-    ["thirtyDays",720]
-
-];
-
-var dayDots = [];
-
 for (let i = 0; i < idOfDayDots.length; i++) {
 
     const elem = document.getElementById(idOfDayDots[i][0]);
@@ -148,12 +149,27 @@ function updateDayDots() {
 
             if (i !== 0) {
 
+                if(newTime.getHours() > 21){
+
+                    newTime.setHours(21);
+                    newTime.setMinutes(0);
+
+                }
+
                 elem.innerHTML = dayDots[i] + "<br>" + getDayOfWeek(newTime) + "<br>" + formatDate(newTime);
 
             }
 
             else {
                
+                if(newTime.getDay() > now.getDay()){
+;
+                    newTime.setHours(21);
+                    newTime.setMinutes(0);
+                    newTime.setHours(newTime.getHours() -24);
+
+                }
+
                 elem.innerHTML = dayDots[i] + "<br>" + getDayOfWeek(newTime) + "<br>" + formatDate(newTime);
 
             }       
@@ -165,8 +181,61 @@ function updateDayDots() {
     }
 }
 
-// Initial call
-updateDayDots();
+// Ensure DOM is fully loaded before initial calls
+document.addEventListener("DOMContentLoaded", () => {
 
-// Update every second
-setInterval(updateDayDots, 1000);
+    updateDayDots();
+    scheduleNextUpdate();
+
+});
+
+function scheduleNextUpdate() {
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const now = new Date();
+        var nextUpdate = 100;
+
+        if (now.getHours() > 21) {
+
+            nextUpdate = (24 * 60 * 60 * 1000) - (now.getHours() * 60 * 60 * 1000) - (now.getMinutes() * 60 * 1000) - (now.getSeconds() * 1000) + 500;
+
+        }
+
+        else if (now.getMinutes() > 20 && now.getMinutes() < 50) {
+
+            nextUpdate = (50 * 60 * 1000) + 500 - (now.getMinutes() * 60 * 1000);
+
+        }
+
+        else if(now.getMinutes() >= 50){
+
+            nextUpdate = (60 * 60 * 1000) - (now.getMinutes() * 60 * 1000) + 500;
+
+        }
+
+        else if(now.getMinutes() < 20){
+
+            nextUpdate = (20 * 60 * 1000) - (now.getMinutes() * 60 * 1000) + 500;
+
+        }
+
+        else{
+
+            nextUpdate = 100;
+
+        }
+
+        console.log("Next update in: " + nextUpdate + "ms");
+
+        setInterval(() => {
+
+            console.log("Updating day dots..." + nextUpdate);
+            updateDayDots();
+
+        }, nextUpdate); // Update every 60 seconds
+    });
+}
+
+// Initial call
+scheduleNextUpdate();

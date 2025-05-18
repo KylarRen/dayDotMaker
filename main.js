@@ -170,6 +170,14 @@ function updateDayDots() {
 
                 }
 
+                else if(newTime.getDay() !== now.getDay() && newTime.getDay() == 0){
+
+                    newTime.setHours(21);
+                    newTime.setMinutes(0);
+                    newTime.setHours(newTime.getHours() -24);
+                    
+                }
+
                 elem.innerHTML = dayDots[i] + "<br>" + getDayOfWeek(newTime) + "<br>" + formatDate(newTime);
 
             }       

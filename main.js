@@ -29,7 +29,7 @@ function setColor(elem, date) {
                 break;  
 
             case 1: // Monday
-                elem.style.backgroundColor = "blue"; 
+                elem.style.backgroundColor = "dodgerBlue"; 
                 elem.style.color = "white";
                 break;
 
@@ -42,7 +42,7 @@ function setColor(elem, date) {
                 break;
 
             case 4: // Thursday
-                elem.style.backgroundColor = "brown"; 
+                elem.style.backgroundColor = "saddleBrown"; 
                 break;
 
             case 5: // Friday
@@ -50,7 +50,7 @@ function setColor(elem, date) {
                 break;
 
             case 6: // Saturday
-                elem.style.backgroundColor = "orange"; 
+                elem.style.backgroundColor = "darkOrange"; 
                 break;
                 
             default:

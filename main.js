@@ -50,7 +50,7 @@ function setColor(elem, date) {
                 break;
 
             case 6: // Saturday
-                elem.style.backgroundColor = #FF5F1F; 
+                elem.style.backgroundColor = "#FF5F1F"; 
                 break;
                 
             default:
